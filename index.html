@@ -15,8 +15,7 @@
    			dataType: "json",
   			url: "https://data.cityofnewyork.us/resource/xx67-kt59.json",
   			success:function(data){
-  			console.log(data.restaurants);
-  			$.each(data.restaurants),
+  			$.each(data.restaurants,
   				function(index,item){
 
   					// var name = '<h2>'+item.dba+'</h2>';
@@ -25,8 +24,8 @@
 
   					// $('restaurants').append(name + date + violation);
   					$('restaurants').append("<h2>"+item.dba+'"</h2><p>'+item.grade_date+'</p><p>'+item.violation_description+'</p>');
-  				};
-  			};
+  				});
+  			}
 		});
 	 </script>
 </body>
