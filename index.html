@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+</head>
+
+<body>
+	<h1>Data</h1>
+	<div id="restaurants"></div>
+
+	
+	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	 <script>
+	 	$.ajax({
+   			dataType: "json",
+  			url: "https://data.cityofnewyork.us/resource/xx67-kt59.json",
+  			success:function(data){
+  			console.log(data.restaurants);
+  			$.each(data.restaurants),
+  				function(index,item){
+
+  					// var name = '<h2>'+item.dba+'</h2>';
+  					// var date = '<p>'+item.grade_date+'</p>';
+  					// var violation = '<p>'+item.violation_description+'</p>';
+
+  					// $('restaurants').append(name + date + violation);
+  					$('restaurants').append("<h2>"+item.dba+'"</h2><p>'+item.grade_date+'</p><p>'+item.violation_description+'</p>');
+  				};
+  			};
+		});
+	 </script>
+</body>
+
+</html>
