@@ -2,28 +2,91 @@
 <html>
 
 <head>
+	<title></title>
+
 </head>
 
 <body>
-	<h1>Data</h1>
+	<div id="header_perm">
+		<div id="headline">
+			<h1>Before you eat out...</h1>
+		</div>
+		<div id="input">
+		</div>
+
+	</div>
+
+	<div id="restaurant_list">
+
+		<div id="search_result">
+			<p>Did you mean...</p>
+			<ul>
+			</ul>
+		</div>
+
+		<div id="violation_report">
+
+		</div>
+
+	</div>
+
+
+
+
+
+
+
 	<div id="restaurants"></div>
 
+	<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+	<script src="js/underscore.js"></script>
+	<script src="js/script.js"></script>
+
 	
-	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-	 <script>
-	 	$.ajax({
-   			dataType: "json",
-  			url: "https://data.cityofnewyork.us/resource/xx67-kt59.json",
-  			success:function(data){
 
-
-  			$.each(data, function(index,item){
-
-  					$('#restaurants').append("<h2>"+item.dba+'"</h2><p>'+item.grade_date+'</p><p>'+item.violation_description+'</p>');
-  				});
-  			}
-		});
-	 </script>
 </body>
 
 </html>
+
+
+<!-- Underscore notes
+
+
+
+WITH LIST IN HTML
+
+success:function(data){
+	console.log(data);
+	var arr = createRestArray(data);
+	var dateArr = sortRestArray(arr);
+	putOnPage(dateArr);
+}
+
+----close out ajax
+
+createRestArray(data){
+	var rest = [];
+	_.each (data.result.records,function(record,index){
+		var restaurants = {
+		name: record.dba
+		date: record.grade_date
+		address: record.building+' '+record.street+' '+record.zipcode
+	}
+	unis.push(rest);
+});
+
+return unis;
+}
+
+function sortRestArray(arr){
+	var dateOrder = _.sortBy(arr,'date');
+	return dateOrder;
+}
+
+function putOnPage(dateArr){
+	var listItemTemplate = _.template('<li><h3><%= name %></h3><p><%= date %></p><p><%= address %></p></li>');
+	_.each(dateArr, function(restaurant,index){
+		var listItem = listItemTemplate(restaurant);
+		$('#rest-list').append(listItem);
+});
+} -->
