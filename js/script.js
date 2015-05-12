@@ -5,11 +5,15 @@ $(document).ready(function(){
    			dataType: "json",
   			url: "https://data.cityofnewyork.us/resource/xx67-kt59.json",
   			success:function(data){
-  				console.log(data);
-  				var arr = restaurantArray(data);
-  				var sortArr = sortedArr(arr);
-  				putOnPage(sortArr);
-  				runSearch();
+  				// console.log(data);
+  				var groupedData = groupUnderName(data);
+  				var arr = restaurantArray(groupedData);
+
+  				// var arr = restaurantArray(data);
+  				// groupUnderName(arr);
+  				// var sortArr = sortedArr(arr);
+  				putOnPage(arr);
+  				// runSearch();
 
 
   			// $.each(data, function(index,item){
@@ -19,21 +23,61 @@ $(document).ready(function(){
   			}
 		});
 
-	function restaurantArray(data){
+
+
+	function restaurantArray(groupeddata){
 
 		var rest = [];
 
-		_.each(data.result.records,fuction(r,index){
-
+		_.each(groupeddata,function(r,index){
 			var restaurant = {
-				name: r.dba,
-				date: r.grade_date,
-				address: r.building+' '+r.street+' '+r.zipcode
-			};
+				name:r[0].dba,
+				address:r[0].building+' '+r[0].street+' '+r[0].zipcode
+			}
+
+			restaurant.violations = [];
+			
+			_.each(r,function(v,i){
+				// console.log(v);
+
+				var violation = {
+					date: v.grade_date,
+					description: v.violation_description
+				};
+				restaurant.violations.push(violation);
+			});
+
+			// console.log(restaurant.violations);
+
 
 			rest.push(restaurant);
 
 		});
+
+		console.log(rest);
+		// console.log(rest);
 		return rest;
+
+	};
+
+	function groupUnderName(data){
+		var groupedRest = _.groupBy(data,'dba');
+		return groupedRest;
+	};
+
+	function putOnPage(arr){
+		var listItemTemplate = _.template("<li><h2><%= name %></h2><h3><%= address %></h3><div><ul class='vioList'></ul></div></li>");
+		_.each(arr,function(rest,index){
+
+			var listItem = listItemTemplate(rest);
+			$('#rest-list').append(listItem);
+
+			// var violationTemplate = _.template("<li><p><%= description %></p></li>")
+			// _.each(arr,function(violation,index){
+
+			// 	var vioDes = violationTemplate(violation);
+			// 	$('.vioList').append(vioDes);
+			// });
+		});
 	}
 })	
