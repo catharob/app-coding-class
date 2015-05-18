@@ -25,11 +25,11 @@ $(document).ready(function(){
 
 
 
-	function restaurantArray(groupeddata){
+	function restaurantArray(groupedData){
 
 		var rest = [];
 
-		_.each(groupeddata,function(r,index){
+		_.each(groupedData,function(r,index){
 			var restaurant = {
 				name:r[0].dba,
 				address:r[0].building+' '+r[0].street+' '+r[0].zipcode
@@ -72,12 +72,13 @@ $(document).ready(function(){
 			var listItem = listItemTemplate(rest);
 			$('#rest-list').append(listItem);
 
-			// var violationTemplate = _.template("<li><p><%= description %></p></li>")
-			// _.each(arr,function(violation,index){
+			var violationTemplate = _.template("<li><p><%= description %></p></li>")
+			_.each(rest.violations,function(violation,index){
 
-			// 	var vioDes = violationTemplate(violation);
-			// 	$('.vioList').append(vioDes);
-			// });
+				var vioDes = violationTemplate(violation);
+				$('.vioList').append(vioDes);
+				console.log(vioDes)
+			});
 		});
 	}
 })	
