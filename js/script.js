@@ -15,6 +15,7 @@ $(document).ready(function(){
   				putOnPage(arr);
   				runSearch();
   				showViolations();
+  				// resetButton();
 
 
   			// $.each(data, function(index,item){
@@ -67,6 +68,7 @@ $(document).ready(function(){
 	function groupUnderName(data){
 		var groupedRest = _.groupBy(data,'dba');
 		return groupedRest;
+
 	};
 
 
@@ -112,10 +114,17 @@ $(document).ready(function(){
 		$('.restaurant-name').click(function(){
 			$('.violation-description').removeClass('violation-description')
 		});
-		// $('.restaurant-name').click(function(){
-		// 	$('.violation-description').addClass('violation-description')
-		// })
-	}
+		$('#reset-button').click(function(){
+			$('#rest-list li p').addClass('violation-description');
+			$('#search-box').val('');
+		})
+	};
+
+	// function resetButton(){
+	// 	document.getElementById('#reset-button').value = '';
+	// }
+
+
 
 
 })	
