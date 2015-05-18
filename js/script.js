@@ -33,7 +33,9 @@ $(document).ready(function(){
 			var restaurant = {
 				name:r[0].dba,
 				address:r[0].building+' '+r[0].street+' '+r[0].zipcode
+				
 			}
+			
 
 			restaurant.violations = [];
 			
@@ -43,6 +45,7 @@ $(document).ready(function(){
 				var violation = {
 					date: v.grade_date,
 					description: v.violation_description
+
 				};
 				restaurant.violations.push(violation);
 			});
@@ -66,8 +69,11 @@ $(document).ready(function(){
 	};
 
 	function putOnPage(arr){
-		var listItemTemplate = _.template("<li><h2><%= name %></h2><h3><%= address %></h3><div><ul class='vioList'></ul></div></li>");
+		var listItemTemplate = _.template("<li id='item-<%= index %>'><h2><%= name %></h2><h3><%= address %></h3><div><ul class='vioList'></ul></div></li>");
 		_.each(arr,function(rest,index){
+
+			rest.index = index + 1;
+			console.log(rest.index);
 
 			var listItem = listItemTemplate(rest);
 			$('#rest-list').append(listItem);
@@ -76,9 +82,12 @@ $(document).ready(function(){
 			_.each(rest.violations,function(violation,index){
 
 				var vioDes = violationTemplate(violation);
-				$('.vioList').append(vioDes);
+				$('#item-'+rest.index).append(vioDes);
 				console.log(vioDes)
 			});
 		});
 	}
+
+	// function runSearch();
+
 })	
