@@ -16,7 +16,7 @@ h1{
 
     color: black;
 
-    font-family: Arial;
+    font-family: "Arial Black", "Gadget", sans-serif;
 
     font-size: 42px;
 
@@ -64,7 +64,7 @@ h4{
 
  }
 
-#pagesetup{ height: 700px;
+body{ height: 700px;
 
   width: 545px;
 
@@ -72,13 +72,10 @@ h4{
 
   margin-right: auto;
 
-  border: 5px solid black;
-
   padding: 20px;
 
-  background-color: #10b958;
+  background-color: #FFF3CA;
 
-  text-align: center;
 
   box-shadow: 10px 10px 5px #888888;
 
@@ -86,7 +83,6 @@ h4{
 
 #input{
 
-    margin: 5px;
 
     padding-bottom: 5px;
 
@@ -120,4 +116,9 @@ h4{
 
 .violation-description{
 	display: none;
+}
+
+h2:hover{
+	color: #B82E2D;
+	cursor: pointer;
 }
