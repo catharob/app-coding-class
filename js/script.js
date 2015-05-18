@@ -13,7 +13,7 @@ $(document).ready(function(){
   				// groupUnderName(arr);
   				// var sortArr = sortedArr(arr);
   				putOnPage(arr);
-  				// runSearch();
+  				runSearch();
 
 
   			// $.each(data, function(index,item){
@@ -68,8 +68,9 @@ $(document).ready(function(){
 		return groupedRest;
 	};
 
+
 	function putOnPage(arr){
-		var listItemTemplate = _.template("<li id='item-<%= index %>'><h2><%= name %></h2><h3><%= address %></h3><div><ul class='vioList'></ul></div></li>");
+		var listItemTemplate = _.template("<li id='item-<%= index %>'><h2><%= name %></h2><h3><%= address %></h3></li>");
 		_.each(arr,function(rest,index){
 
 			rest.index = index + 1;
@@ -78,7 +79,7 @@ $(document).ready(function(){
 			var listItem = listItemTemplate(rest);
 			$('#rest-list').append(listItem);
 
-			var violationTemplate = _.template("<li><p><%= description %></p></li>")
+			var violationTemplate = _.template("<p><strong><%= date %></strong><%= description %></p>")
 			_.each(rest.violations,function(violation,index){
 
 				var vioDes = violationTemplate(violation);
@@ -88,6 +89,16 @@ $(document).ready(function(){
 		});
 	}
 
-	// function runSearch();
+	function runSearch(){
+		var rows = $('#rest-list li');
+		$('#search-box').keyup(function(){
+			var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+
+			rows.show().filter(function(){
+				var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+				return !~text.indexOf(val);
+			}).hide();
+		});
+	}
 
 })	
