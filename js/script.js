@@ -14,6 +14,7 @@ $(document).ready(function(){
   				// var sortArr = sortedArr(arr);
   				putOnPage(arr);
   				runSearch();
+  				showViolations();
 
 
   			// $.each(data, function(index,item){
@@ -70,7 +71,7 @@ $(document).ready(function(){
 
 
 	function putOnPage(arr){
-		var listItemTemplate = _.template("<li id='item-<%= index %>'><h2><%= name %></h2><h3><%= address %></h3></li>");
+		var listItemTemplate = _.template("<li id='item-<%= index %>'><h2 class='restaurant-name'><%= name %></h2><h3><%= address %></h3></li>");
 		_.each(arr,function(rest,index){
 
 			rest.index = index + 1;
@@ -79,7 +80,7 @@ $(document).ready(function(){
 			var listItem = listItemTemplate(rest);
 			$('#rest-list').append(listItem);
 
-			var violationTemplate = _.template("<p><strong><%= date %></strong><%= description %></p>")
+			var violationTemplate = _.template("<p class='violation-description'><strong><%= date %></strong><%= description %></p>")
 			_.each(rest.violations,function(violation,index){
 
 				var vioDes = violationTemplate(violation);
@@ -99,6 +100,22 @@ $(document).ready(function(){
 				return !~text.indexOf(val);
 			}).hide();
 		});
+	};
+
+	// $("button").click(function(){
+
+ //        $("p").toggle();
+
+ //    });
+
+	function showViolations(){
+		$('.restaurant-name').click(function(){
+			$('.violation-description').removeClass('violation-description')
+		});
+		// $('.restaurant-name').click(function(){
+		// 	$('.violation-description').addClass('violation-description')
+		// })
 	}
+
 
 })	
